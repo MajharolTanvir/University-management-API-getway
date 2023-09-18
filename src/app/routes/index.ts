@@ -64,7 +64,7 @@ const moduleRoutes = [
     routes: StudentEnrolledCourseMarkRouter
   },
   {
-    path: '/student-semester-payment',
+    path: '/student-semester-payments',
     routes: SemesterRegistrationsRouter
   }
 ];

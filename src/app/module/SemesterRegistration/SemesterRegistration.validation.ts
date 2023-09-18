@@ -1,6 +1,6 @@
 
 import { z } from 'zod';
-import { SemesterRegistrationStatus } from './semesterRegistration.constant';
+import { SemesterRegistrationStatus } from '../../../enums/semesterRegistrationStatus';
 
 const createSemesterRegistration = z.object({
   body: z.object({
