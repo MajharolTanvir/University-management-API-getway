@@ -11,10 +11,15 @@ import { OfferedCoursesSectionsRouter } from '../module/OfferedCourseSection/Off
 import { SemesterRegistrationsRouter } from '../module/SemesterRegistration/SemesterRegistration.route';
 import { StudentEnrolledCoursesRouter } from '../module/StudentEnrolledCourse/StudentEnrolledCourse.route';
 import { StudentEnrolledCourseMarkRouter } from '../module/StudentEnrolledCourseMarks/StudentEnrolledCourseMarks.route';
+import { UserRouter } from '../module/user/user.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
+  {
+    path: '/users',
+    routes: UserRouter
+  },
   {
     path: '/academic-semesters',
     routes: AcademicSemesterRouter
