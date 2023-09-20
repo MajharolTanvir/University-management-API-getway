@@ -47,6 +47,61 @@ const createStudent = async (req: Request) => {
   return response;
 };
 
+const createFaculty = async (req: Request): Promise<IGenericResponse> => {
+  const file = req.file as IUploadFile;
+
+  const uploadedProfileImage = await FileUploadHelper.uploadToCloudinary(file);
+
+  if (uploadedProfileImage) {
+    req.body.faculty.profileImage = uploadedProfileImage.secure_url;
+  }
+
+  const { academicDepartment, academicFaculty } = req.body.faculty;
+
+  const academicDepartmentResponse = await authService.get(
+    `/academic-department?syncId=${academicDepartment}`
+  );
+
+  if (academicDepartmentResponse.data && Array.isArray(academicDepartmentResponse.data)) {
+    req.body.faculty.academicDepartment = academicDepartmentResponse.data[0]._id;
+  }
+
+  const academicFacultyResponse = await authService.get(
+    `/academic-faculty?syncId=${academicFaculty}`
+  );
+
+  if (academicFacultyResponse.data && Array.isArray(academicFacultyResponse.data)) {
+    req.body.faculty.academicFaculty = academicFacultyResponse.data[0]._id;
+  }
+
+  const response: IGenericResponse = await authService.post('/users/create-faculty', req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return response;
+};
+
+const createAdmin = async (req: Request): Promise<IGenericResponse> => {
+  const file = req.file as IUploadFile;
+
+  const uploadedProfileImage = await FileUploadHelper.uploadToCloudinary(file);
+
+  if (uploadedProfileImage) {
+    req.body.admin.profileImage = uploadedProfileImage.secure_url;
+  }
+
+  const response: IGenericResponse = await authService.post('/users/create-admin', req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+  return response;
+};
+
 export const UserService = {
-  createStudent
+  createStudent,
+  createFaculty,
+  createAdmin
 };
