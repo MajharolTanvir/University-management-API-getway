@@ -15,10 +15,15 @@ import { UserRouter } from '../module/user/user.route';
 import { StudentRouter } from '../module/student/student.route';
 import { FacultyRouter } from '../module/faculty/faculty.route';
 import { AdminRouter } from '../module/admin/admin.route';
+import { AuthRouter } from '../module/auth/auth.router';
 
 const router = express.Router();
 
 const moduleRoutes = [
+  {
+    path: '/auth',
+    routes: AuthRouter
+  },
   {
     path: '/users',
     routes: UserRouter
